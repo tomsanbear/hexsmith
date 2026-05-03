@@ -1,0 +1,12 @@
+[package]
+name = "hexsmith"
+version = "0.0.0"
+edition = "2024"
+description = "A reserved crate name for the forthcoming hexsmith library."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/tomsanbear/hexsmith"
+readme = "README.md"
+keywords = ["hex", "encoding"]
+categories = ["encoding"]
+
+[dependencies]
