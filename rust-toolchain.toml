@@ -1,0 +1,6 @@
+[toolchain]
+# Pinned nightly keeps unstable build optimizations reproducible across dev boxes and CI.
+# Bump intentionally; do not switch to floating `nightly` without reviewing unstable flags in
+# `.cargo/config.toml`.
+channel = "nightly-2026-05-03"
+components = ["rustfmt", "clippy"]

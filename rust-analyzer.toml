@@ -1,0 +1,12 @@
+# Project-local rust-analyzer config. Separating rust-analyzer artifacts from terminal cargo
+# artifacts avoids repeated re-fingerprinting as the dependency graph grows.
+
+[cargo]
+# `true` makes rust-analyzer use `target/rust-analyzer/` automatically.
+targetDir = true
+
+[check]
+command = "clippy"
+# Keep editor checks warm and focused. Run `cargo test` / `cargo clippy --tests` in the terminal
+# for full test-target validation.
+allTargets = false

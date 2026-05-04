@@ -1,0 +1,51 @@
+repos:
+  - repo: local
+    hooks:
+      - id: rustfmt
+        name: rustfmt (auto-fix)
+        entry: cargo fmt --all
+        language: system
+        files: \.rs$
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: cargo-check
+        name: cargo check (all targets)
+        entry: cargo check --all-targets
+        language: system
+        files: ^(src/.*\.rs|Cargo\.toml|Cargo\.lock|rust-toolchain\.toml|\.cargo/config\.toml|clippy\.toml)$
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: cargo-clippy
+        name: cargo clippy (deny warnings)
+        entry: cargo clippy --all-targets -- -D warnings
+        language: system
+        files: ^(src/.*\.rs|Cargo\.toml|Cargo\.lock|rust-toolchain\.toml|\.cargo/config\.toml|clippy\.toml)$
+        pass_filenames: false
+        stages: [pre-commit]
+
+      - id: conventional-commit
+        name: Validate commit message (Conventional Commits)
+        entry: scripts/commitlint.sh
+        language: system
+        stages: [commit-msg]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        stages: [pre-commit]
+        exclude: .*\.lock$
+      - id: check-merge-conflict
+        stages: [pre-commit, commit-msg]
+      - id: check-toml
+        stages: [pre-commit]
+      - id: check-yaml
+        stages: [pre-commit]
+      - id: mixed-line-ending
+        stages: [pre-commit]
+      - id: check-case-conflict
+        stages: [pre-commit]
+      - id: detect-private-key
+        stages: [pre-commit]

@@ -10,3 +10,21 @@ keywords = ["hex", "encoding"]
 categories = ["encoding"]
 
 [dependencies]
+
+[lints.rust]
+missing_docs = "deny"
+unsafe_code = "deny"
+unfulfilled_lint_expectations = "warn"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }
+cargo = { level = "warn", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+print_stderr = "deny"
+todo = "allow"
+too_many_lines = "allow"

@@ -1,0 +1,42 @@
+# Cargo configuration for hexsmith.
+# Keep this file small and intentional: the crate is light today, but these defaults prevent
+# editor/terminal rebuild thrash and target-dir bloat as dependencies grow.
+
+[unstable]
+# Nightly-only cargo GC for ~/.cargo/{registry,git}; ignored by stable Cargo.
+gc = true
+# Store duplicated crate metadata only in .rmeta, not every .rlib. This reduces target size.
+# Tracking: https://github.com/rust-lang/cargo/issues/15495
+no-embed-metadata = true
+# Gate `[resolver].feature-unification` below.
+# Tracking: https://github.com/rust-lang/cargo/issues/14774
+feature-unification = true
+
+[resolver]
+# Use one workspace-wide feature union even for scoped builds. This trades a slightly larger
+# fresh compile for much better artifact reuse when switching between commands/editors.
+feature-unification = "workspace"
+
+[build]
+incremental = true
+# Nightly parallel rustc front-end. N=8 is the current sweet spot: meaningful speedup without
+# excessive query-system contention. Memory use rises during compilation, so revisit for small CI.
+rustflags = ["-Z", "threads=8"]
+
+[term]
+verbose = false
+color = "auto"
+
+# macOS: use lld if installed by Homebrew. Target-specific rustflags replace, rather than merge
+# with, `[build].rustflags`, so `-Z threads=8` is repeated here intentionally.
+[target.aarch64-apple-darwin]
+rustflags = [
+    "-C", "link-arg=-fuse-ld=/opt/homebrew/opt/lld/bin/ld64.lld",
+    "-Z", "threads=8",
+]
+
+[target.x86_64-apple-darwin]
+rustflags = [
+    "-C", "link-arg=-fuse-ld=/opt/homebrew/opt/lld/bin/ld64.lld",
+    "-Z", "threads=8",
+]

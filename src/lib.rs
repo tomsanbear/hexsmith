@@ -3,6 +3,7 @@
 //! This crate is intentionally minimal while the public API is being designed.
 
 /// Returns the crate name.
+#[must_use]
 pub const fn crate_name() -> &'static str {
     "hexsmith"
 }

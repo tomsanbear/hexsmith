@@ -1,0 +1,9 @@
+# Allow test code to fail loudly and keep fixtures readable.
+allow-unwrap-in-tests = true
+allow-expect-in-tests = true
+allow-panic-in-tests = true
+allow-print-in-tests = true
+allow-dbg-in-tests = true
+
+# Counts `&self`, so 5 means 4 user-visible args triggers the lint.
+too-many-arguments-threshold = 5
